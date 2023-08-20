@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List, Aperture, Chatbox, Menu, Close } from "react-ionicons";
+import { List, Chatbox, Menu, Close } from "react-ionicons";
 import { Link, useLocation } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
@@ -35,13 +35,12 @@ const Sidebar: React.FC = () => {
           <div className="flex space-x-1  items-stretch justify-between">
             {/* Header Title */}
             <div className="flex items-center p-2 text-gray-200 rounded-lg bg-slate-700 group shadow-md flex-grow">
-              <Aperture color={"#f9fafb"} height="25px" width="25px" />
+              <img className="w-8 h-8" src="/logo.png" alt="Logo" />
               <span className="ml-3 text-lg -800 font-medium">
                 Chat Assistant
               </span>
             </div>
             {/* Sidebar Close button */}
-
             <button
               onClick={toggleSidebar}
               type="button"
