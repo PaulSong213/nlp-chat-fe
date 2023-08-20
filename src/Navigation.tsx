@@ -55,6 +55,7 @@ const Sidebar: React.FC = () => {
             {/* Sidebar Item 1 */}
             <Link
               to="/"
+              onClick={toggleSidebar}
               className={`flex items-center p-2 text-gray-800 rounded-lg   ${
                 location.pathname === "/"
                   ? "bg-slate-300"
@@ -67,6 +68,7 @@ const Sidebar: React.FC = () => {
             {/* Sidebar Item 2 */}
             <Link
               to="/history"
+              onClick={toggleSidebar}
               className={`flex items-center p-2 text-gray-800 rounded-lg   ${
                 location.pathname === "/history"
                   ? "bg-slate-300"
