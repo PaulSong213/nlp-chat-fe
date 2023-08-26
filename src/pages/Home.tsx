@@ -5,23 +5,28 @@ import ChatBubbles from "../components/ChatBubbles";
 interface CounterProps {}
 
 const Home: React.FC<CounterProps> = () => {
+  const botTemporaryMessage = {
+    isFromBot: true,
+    message: "Hello user, this chat assistant is still under maintenance. Please come back later!",
+  };
   const [userChat, setUserChat] = useState("");
-  const [chats, setChats] = useState([
-    {
-      isFromBot: true,
-      message: "First!",
-    },
-    {
-      isFromBot: false,
-      message: "second",
-    },
-  ]);
+  const [chats, setChats] = useState([botTemporaryMessage]);
+
+  useEffect(() => {
+    if(chats[chats.length-1].isFromBot) return;
+    setIsBotTyping(true);
+    // TODO : When backend is ready, send the user's message to the backend and get the bot's reply
+    setTimeout(() => {
+      sendChat(botTemporaryMessage.message, true);
+      setIsBotTyping(false);
+    }, 1000);
+  }, [chats]);
 
   // Ref to the chat messages container
   const chatMessagesRef = useRef<HTMLDivElement | null>(null);
 
   const sendChat = (chat: string, isFromBot: boolean) => {
-    if (!chat) return;
+    if (!chat) return; // If the chat is empty, do nothing
     const newChat = {
       isFromBot: isFromBot,
       message: chat,
@@ -29,8 +34,13 @@ const Home: React.FC<CounterProps> = () => {
 
     setChats([...chats, newChat]);
     setUserChat("");
-    setIsBotTyping(!isBotTyping);
   };
+
+ 
+
+  
+
+  
 
   const [isBotTyping, setIsBotTyping] = useState(false);
 

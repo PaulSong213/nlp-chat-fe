@@ -19,3 +19,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* CSS */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(20px); /* Initial position, translate down */
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0); /* Final position, translate to original position */
+  transition: opacity 500ms, transform 500ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0); /* Initial position for exit, already at original position */
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(20px); /* Translate down for exit */
+  transition: opacity 500ms, transform 500ms;
+}
+
