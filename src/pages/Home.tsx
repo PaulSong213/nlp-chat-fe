@@ -16,12 +16,16 @@ const Home: React.FC<CounterProps> = () => {
         if (chats[chats.length - 1].isFromBot) return;
         setIsBotTyping(true);
         // TODO : When backend is ready, send the user's message to the backend and get the bot's reply
-        fetch("https://nlp-be.azurewebsites.net/chatbot?message=" + chats[chats.length - 1].message, { method: "GET" })
+        fetch("https://nlp-be.azurewebsites.net/chatbot?format=json&message=" + chats[chats.length - 1].message, { method: "GET" })
             .then((res) => res.json())
             .then((data) => {
                 sendChat(data.response, true);
                 setIsBotTyping(false);
-            });
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+            ;
     }, [chats]);
 
     // Ref to the chat messages container
