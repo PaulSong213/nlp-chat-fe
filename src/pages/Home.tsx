@@ -1,6 +1,7 @@
 import { Send } from "react-ionicons";
 import { useState, useRef, useEffect } from "react";
 import ChatBubbles from "../components/ChatBubbles";
+import { fetchBotResponse } from '../api';
 
 interface CounterProps { }
 
@@ -16,16 +17,14 @@ const Home: React.FC<CounterProps> = () => {
         if (chats[chats.length - 1].isFromBot) return;
         setIsBotTyping(true);
         // TODO : When backend is ready, send the user's message to the backend and get the bot's reply
-        fetch("https://nlp-be.azurewebsites.net/chatbot?format=json&message=" + chats[chats.length - 1].message, { method: "GET" })
-            .then((res) => res.json())
+        fetchBotResponse(chats[chats.length - 1].message)
             .then((data) => {
                 sendChat(data.response, true);
                 setIsBotTyping(false);
             })
             .catch((e) => {
                 console.log(e);
-            })
-            ;
+            });
     }, [chats]);
 
     // Ref to the chat messages container
