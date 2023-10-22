@@ -42,12 +42,6 @@ const Home: React.FC<CounterProps> = () => {
         setUserChat("");
     };
 
-
-
-
-
-
-
     const [isBotTyping, setIsBotTyping] = useState(false);
 
     // Auto-scroll behavior
@@ -60,12 +54,12 @@ const Home: React.FC<CounterProps> = () => {
     return (
         <div className="flex h-screen antialiased text-gray-800">
             <div className="flex flex-row h-full w-full overflow-x-hidden">
-                <div className="flex flex-col flex-auto h-full p-6">
+                <div className="flex flex-col flex-auto h-full md:p-6">
                     <div className="flex flex-col justify-end flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full pl-3 py-3 pr-1 overflow-hidden">
                         {/* Chat Messages */}
                         <div
                             ref={chatMessagesRef}
-                            className="overflow-y-auto p-2 flex-grow"
+                            className="overflow-y-auto xl:p-2 flex-grow"
                         >
                             <ChatBubbles chats={chats} isBotTyping={isBotTyping} />
                         </div>
