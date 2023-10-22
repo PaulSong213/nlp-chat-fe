@@ -1,5 +1,5 @@
 // src/api.ts
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const api = axios.create({
     baseURL: 'https://nlp-be.azurewebsites.net', // Replace with your API's base URL
