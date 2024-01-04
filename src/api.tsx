@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://nlp-be.azurewebsites.net', // Replace with your API's base URL
+    baseURL: 'https://nlp-backend-chat.azurewebsites.net', // Replace with your API's base URL
 });
 
 // Example API function
