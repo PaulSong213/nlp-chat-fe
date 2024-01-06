@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List, Chatbox, Menu, Close } from "react-ionicons";
+import { Person, Chatbox, Menu, Close, LogoGoogle } from "react-ionicons";
 import { Link, useLocation } from "react-router-dom";
 
 const Sidebar: React.FC = () => {
@@ -26,9 +26,8 @@ const Sidebar: React.FC = () => {
       {/* Sidebar Content */}
       <aside
         id="cta-button-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } sm:translate-x-0`}
+        className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } sm:translate-x-0`}
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
@@ -56,27 +55,37 @@ const Sidebar: React.FC = () => {
             <Link
               to="/"
               onClick={toggleSidebar}
-              className={`flex items-center p-2 text-gray-800 rounded-lg   ${
-                location.pathname === "/"
-                  ? "bg-slate-300"
-                  : "bg-slate-50 hover:bg-gray-200"
-              }`}
+              className={`flex items-center p-2 text-gray-800 rounded-lg   ${location.pathname === "/"
+                ? "bg-slate-300"
+                : "bg-slate-50 hover:bg-gray-200"
+                }`}
             >
               <Chatbox color={"#314673"} height="30px" width="30px" />
-              <span className="ml-3">Chat </span>
+              <span className="ml-3">Chat with AI Language Model</span>
             </Link>
             {/* Sidebar Item 2 */}
             <Link
-              to="/history"
+              to="/chat-person"
               onClick={toggleSidebar}
-              className={`flex items-center p-2 text-gray-800 rounded-lg   ${
-                location.pathname === "/history"
-                  ? "bg-slate-300"
-                  : "bg-slate-50 hover:bg-gray-200"
-              }`}
+              className={`flex items-center p-2 text-gray-800 rounded-lg   ${location.pathname === "/chat-person"
+                ? "bg-slate-300"
+                : "bg-slate-50 hover:bg-gray-200"
+                }`}
             >
-              <List color={"#314673"} height="30px" width="30px" />
-              <span className="ml-3">History </span>
+              <Person color={"#314673"} height="30px" width="30px" />
+              <span className="ml-3">Connect with E. Zarate Representative</span>
+            </Link>
+            {/* Sidebar Item 4 */}
+            <Link
+              to="/login"
+              onClick={toggleSidebar}
+              className={`flex items-center p-2 text-gray-800 rounded-lg   ${location.pathname === "/login"
+                ? "bg-slate-300"
+                : "bg-slate-50 hover:bg-gray-200"
+                }`}
+            >
+              <LogoGoogle color={"#314673"} height="30px" width="30px" />
+              <span className="ml-3">Log In</span>
             </Link>
           </ul>
         </div>
