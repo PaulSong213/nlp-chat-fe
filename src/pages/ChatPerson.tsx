@@ -3,8 +3,8 @@ import ChatBubbles from "../components/ChatBubbles";
 import React, { useState, useEffect, useRef } from 'react';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, push, onChildAdded, get } from "firebase/database";
-import { useNavigate, useLocation } from "react-router-dom";
+import { getDatabase, ref, set, onChildAdded } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 const firebaseConfig = {
@@ -31,7 +31,6 @@ const ChatPerson: React.FC<CounterProps> = () => {
 
 
     const navigate = useNavigate();
-    const { state } = useLocation();
     const onSuccessLogin = (user: any) => {
         setFirebaseUser(user);
         console.log(user);
@@ -103,10 +102,6 @@ const ChatPerson: React.FC<CounterProps> = () => {
 
     const sendChat = (chat: string, isFromBot: boolean) => {
         if (!chat) return; // If the chat is empty, do nothing
-        const newChat = {
-            isFromBot: isFromBot,
-            message: chat,
-        };
 
         // setChats([...chats, newChat]);
 

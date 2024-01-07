@@ -26,7 +26,6 @@ const Sidebar: React.FC = () => {
     setSidebarOpen(!sidebarOpen);
   };
   const navigate = useNavigate();
-  const { state } = useLocation();
   const [user, setUser] = useState<User | null>(null);
 
   const onSuccessLogin = (user: any) => {
