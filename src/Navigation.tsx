@@ -1,12 +1,66 @@
-import React, { useState } from "react";
-import { Person, Chatbox, Menu, Close, LogoGoogle } from "react-ionicons";
-import { Link, useLocation } from "react-router-dom";
+import { Person, Chatbox, Menu, Close, LogoGoogle, PersonCircleOutline } from "react-ionicons";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const firebaseConfig = {
+  apiKey: "AIzaSyDFk8xWRKVkALfi6ILzSfPb9nfbZdjUrFw",
+  authDomain: "zarate-appointment.firebaseapp.com",
+  databaseURL: "https://zarate-appointment-default-rtdb.firebaseio.com",
+  projectId: "zarate-appointment",
+  storageBucket: "zarate-appointment.appspot.com",
+  messagingSenderId: "376311733517",
+  appId: "1:376311733517:web:076a33630a3a32ea8ba444"
+};
+
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp); // Initialize auth instance
 
 const Sidebar: React.FC = () => {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const [user, setUser] = useState<User | null>(null);
+
+  const onSuccessLogin = (user: any) => {
+    setUser(user);
+  };
+
+  useEffect(() => {
+    // Set up a listener for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is logged in
+        onSuccessLogin(user);
+      }
+    });
+
+    // Clean up the listener when the component is unmounted
+    return () => unsubscribe();
+  }, [onSuccessLogin]);
+
+  const promptSignout = () => {
+    withReactContent(Swal).fire({
+      title: 'Are you sure you want to sign out?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Sign Out',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#27272a',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await auth.signOut();
+        setUser(null);
+        navigate('/login')
+      }
+    });
   };
 
   return (
@@ -76,17 +130,36 @@ const Sidebar: React.FC = () => {
               <span className="ml-3">Connect with E. Zarate Representative</span>
             </Link>
             {/* Sidebar Item 4 */}
-            <Link
-              to="/login"
-              onClick={toggleSidebar}
-              className={`flex items-center p-2 text-gray-800 rounded-lg   ${location.pathname === "/login"
-                ? "bg-slate-300"
-                : "bg-slate-50 hover:bg-gray-200"
-                }`}
-            >
-              <LogoGoogle color={"#314673"} height="30px" width="30px" />
-              <span className="ml-3">Log In</span>
-            </Link>
+            {!user ? (
+
+              <Link
+                to="/login"
+                state={{ prev: location.pathname }}
+                onClick={toggleSidebar}
+                className={`flex items-center p-2 text-gray-800 rounded-lg   ${location.pathname === "/login"
+                  ? "bg-slate-300"
+                  : "bg-slate-50 hover:bg-gray-200"
+                  }`}
+              >
+                <LogoGoogle color={"#314673"} height="30px" width="30px" />
+                <span className="ml-3">Log In</span>
+              </Link>
+            ) : (
+              <div
+                onClick={promptSignout}
+                className={`flex items-center p-2 text-gray-800 rounded-lg   ${location.pathname === "/login"
+                  ? "bg-slate-300"
+                  : "bg-slate-50 hover:bg-gray-200"
+                  }`}
+              >
+                <PersonCircleOutline color={"#314673"} height="30px" width="30px" />
+                <span className="ml-3">
+                  {user.email ? user.email : user.phoneNumber}
+                </span>
+              </div>
+            )
+
+            }
           </ul>
         </div>
       </aside>
