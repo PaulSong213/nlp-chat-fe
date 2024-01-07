@@ -8,7 +8,7 @@ interface CounterProps { }
 const Home: React.FC<CounterProps> = () => {
     const botInitialMessage = {
         isFromBot: true,
-        message: "Hello, I am E. Zarate personal assistant. How can I help you?",
+        message: "Hello! I'm your friendly chatbot powered by Python - spaCy. My mission is to assist you and provide information. Feel free to ask me anything!",
     };
     const [userChat, setUserChat] = useState("");
     const [chats, setChats] = useState([botInitialMessage]);
@@ -60,12 +60,13 @@ const Home: React.FC<CounterProps> = () => {
                             ref={chatMessagesRef}
                             className="overflow-y-auto xl:p-2 flex-grow"
                         >
-                            <ChatBubbles chats={chats} isBotTyping={isBotTyping} />
+                            <ChatBubbles inPerson={false} chats={chats} isBotTyping={isBotTyping} />
                         </div>
 
                         {/* Chat Input */}
                         <div className="flex space-x-1 items-stretch justify-between">
                             <input
+                                placeholder="Type a message..."
                                 value={userChat}
                                 onChange={(e) => {
                                     setUserChat(e.target.value);

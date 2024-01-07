@@ -5,6 +5,8 @@ import 'firebase/auth';
 import { Call } from "react-ionicons";
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 const firebaseConfig = {
     apiKey: "AIzaSyDFk8xWRKVkALfi6ILzSfPb9nfbZdjUrFw",
     authDomain: "zarate-appointment.firebaseapp.com",
