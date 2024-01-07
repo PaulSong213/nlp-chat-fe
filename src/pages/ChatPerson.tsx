@@ -34,10 +34,11 @@ const ChatPerson: React.FC<CounterProps> = () => {
     const { state } = useLocation();
     const onSuccessLogin = (user: any) => {
         setFirebaseUser(user);
+        console.log(user);
         console.log('User logged in successfully!');
         // return;
         // Fetch chats
-        const chatRef = ref(db, 'chats/' + user?.uid);
+        const chatRef = ref(db, 'chats/' + user?.phoneNumber);
 
         onChildAdded(chatRef, (snapshot) => {
             // Get the data of the added child
@@ -122,7 +123,7 @@ const ChatPerson: React.FC<CounterProps> = () => {
             message: chat,
             user: userData,
         }
-        const chatRef = ref(db, 'chats/' + firebaseUser?.uid + '/' + new Date().getTime());
+        const chatRef = ref(db, 'chats/' + firebaseUser?.phoneNumber + '/' + new Date().getTime());
         // const newChatRef = push(chatRef);
         set(chatRef, firebaseChat).then(function () {
             setUserChat("");
