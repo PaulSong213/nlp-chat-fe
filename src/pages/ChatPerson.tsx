@@ -3,7 +3,7 @@ import ChatBubbles from "../components/ChatBubbles";
 import React, { useState, useEffect, useRef } from 'react';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, onChildAdded, update, get } from "firebase/database";
+import { getDatabase, ref, set, onChildAdded, get } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -28,7 +28,6 @@ const ChatPerson: React.FC<CounterProps> = () => {
     const [userChat, setUserChat] = useState("");
     const [chats, setChats] = useState([{ "isFromBot": true, "message": "Hi there! We are the representatives from E. Zarate Hospital. How can we help you today?" }]);
     const db = getDatabase();
-    const [chatCount, setChatCount] = useState(0);
 
     const navigate = useNavigate();
     const onSuccessLogin = (user: any) => {
@@ -44,10 +43,6 @@ const ChatPerson: React.FC<CounterProps> = () => {
             const data = snapshot.val();
             console.log(data);
 
-            if (snapshot.key === 'count') {
-                setChatCount(data || 0);
-                return;
-            }
 
             // Convert data to a chat object
             const newChat = {
