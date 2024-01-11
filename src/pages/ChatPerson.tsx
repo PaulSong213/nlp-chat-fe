@@ -45,6 +45,7 @@ const ChatPerson: React.FC<CounterProps> = () => {
 
 
             // Convert data to a chat object
+            if (snapshot.key === 'count') return;
             const newChat = {
                 id: snapshot.key,
                 isFromBot: !data.isFromPatient,
