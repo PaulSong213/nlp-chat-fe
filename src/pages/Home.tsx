@@ -2,6 +2,21 @@ import { Send } from "react-ionicons";
 import { useState, useRef, useEffect } from "react";
 import ChatBubbles from "../components/ChatBubbles";
 import { fetchBotResponse } from '../api';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+const firebaseConfig = {
+    apiKey: "AIzaSyDFk8xWRKVkALfi6ILzSfPb9nfbZdjUrFw",
+    authDomain: "zarate-appointment.firebaseapp.com",
+    databaseURL: "https://zarate-appointment-default-rtdb.firebaseio.com",
+    projectId: "zarate-appointment",
+    storageBucket: "zarate-appointment.appspot.com",
+    messagingSenderId: "376311733517",
+    appId: "1:376311733517:web:076a33630a3a32ea8ba444"
+};
+
+
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth(firebaseApp); // Initialize auth instance
 
 interface CounterProps { }
 
@@ -12,6 +27,24 @@ const Home: React.FC<CounterProps> = () => {
     };
     const [userChat, setUserChat] = useState("");
     const [chats, setChats] = useState([botInitialMessage]);
+    const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
+
+
+
+    useEffect(() => {
+        // Set up a listener for authentication state changes
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is logged in
+                if (!firebaseUser) setFirebaseUser(user);
+            } else {
+                setFirebaseUser(null);
+            }
+        });
+
+        // Clean up the listener when the component is unmounted
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         if (chats[chats.length - 1].isFromBot) return;
@@ -32,6 +65,11 @@ const Home: React.FC<CounterProps> = () => {
 
     const sendChat = (chat: string, isFromBot: boolean) => {
         if (!chat) return; // If the chat is empty, do nothing
+        if (chat.startsWith("***")) {
+            if (firebaseUser) sendChat(firebaseUser.phoneNumber || '', false);
+            else sendChat("Log in to know about your personal information", true);
+            return;
+        }
         const newChat = {
             isFromBot: isFromBot,
             message: chat,

@@ -23,7 +23,7 @@ const ChatBubbles: React.FC<ChatBubblesProps> = ({ chats, isBotTyping, inPerson 
     },
     {
       title: 'Doctor Request',
-      message: 'Can I request a specific doctor for my Hospital visit?'
+      message: 'Can I request a specific doctor for my visit?'
     },
     {
       title: 'Hospital Location',
@@ -35,19 +35,15 @@ const ChatBubbles: React.FC<ChatBubblesProps> = ({ chats, isBotTyping, inPerson 
     },
     {
       title: 'Service Availability',
-      message: 'Is X-Ray service available?'
+      message: 'Is X-Ray available?'
     },
     {
       title: 'Required Documents',
       message: 'What should I bring with me for my Out Patient appointment?'
     },
     {
-      title: 'Facility',
-      message: 'Is there a pharmacy or laboratory within the hospital for convenience?'
-    },
-    {
       title: 'Contact Information',
-      message: 'How can I contact the hospital?'
+      message: 'How can I schedule an appointment?'
     },
     {
       title: 'Typical Waiting Time',
@@ -63,14 +59,18 @@ const ChatBubbles: React.FC<ChatBubblesProps> = ({ chats, isBotTyping, inPerson 
     },
     {
       title: 'Hospital Hours',
-      message: 'What are the hospital hours?'
+      message: 'What are the visiting hours?'
     },
+    {
+      title: 'Old Record',
+      message: 'Do I need to bring my old medical certificate?'
+    }
   ]
 
   return (
     <div className="flex flex-col justify-end mt-auto min-h-full pb-3 space-y-2">
 
-      <div className="grid grid-cols-3 gap-4 mb-10 mt-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 mt-20">
         {presetChats.map((chat, index) => (
           <div
             key={index}
@@ -78,7 +78,8 @@ const ChatBubbles: React.FC<ChatBubblesProps> = ({ chats, isBotTyping, inPerson 
             className={`flex flex-col border mouse-pointer border-white bg-white rounded-md shadow-md p-3 hover:bg-zinc-100 cursor-pointer`}>
             <p className={` flex flex-col rounded-lg break-word `} >
               {chat.title}
-              <span className='text-xs'>{chat.message}</span>
+              <span className='text-xs' dangerouslySetInnerHTML={{ __html: chat.message }} />
+
             </p>
           </div>
         ))
