@@ -55,12 +55,14 @@ const Home: React.FC<CounterProps> = () => {
             <div className="flex flex-row h-full w-full overflow-x-hidden">
                 <div className="flex flex-col flex-auto h-full md:p-6">
                     <div className="flex flex-col justify-end flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full pl-3 py-3 pr-1 overflow-hidden">
+
                         {/* Chat Messages */}
                         <div
                             ref={chatMessagesRef}
                             className="overflow-y-auto xl:p-2 flex-grow"
                         >
-                            <ChatBubbles inPerson={false} chats={chats} isBotTyping={isBotTyping} />
+
+                            <ChatBubbles inPerson={false} chats={chats} isBotTyping={isBotTyping} sendChat={sendChat} />
                         </div>
 
                         {/* Chat Input */}
