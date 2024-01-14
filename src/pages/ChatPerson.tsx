@@ -156,7 +156,7 @@ const ChatPerson: React.FC<CounterProps> = () => {
                             ref={chatMessagesRef}
                             className="overflow-y-auto xl:p-2 flex-grow pr-5"
                         >
-                            <ChatBubbles inPerson={true} chats={chats} isBotTyping={false} />
+                            <ChatBubbles inPerson={true} chats={chats} isBotTyping={false} sendChat={sendChat} />
                         </div>
 
                         {/* Chat Input */}
