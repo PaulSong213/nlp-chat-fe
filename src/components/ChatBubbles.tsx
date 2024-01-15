@@ -23,11 +23,11 @@ const ChatBubbles: React.FC<ChatBubblesProps> = ({ chats, isBotTyping, inPerson 
     },
     {
       title: 'Doctor Request',
-      message: 'Can I request a specific doctor for my visit?'
+      message: 'Can I request for a specific doctor?'
     },
     {
       title: 'Hospital Location',
-      message: 'Where does the E. Zarate Hospital located?'
+      message: 'Where can I locate E. Zarate Hospital located?'
     },
     {
       title: 'Medical Document Availability',
