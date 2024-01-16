@@ -1,5 +1,6 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import ChatTypeLoader from '../components/ChatTypeLoader';
+import { useLocation } from "react-router-dom";
 
 interface Chat {
   id?: string;
@@ -15,7 +16,7 @@ interface ChatBubblesProps {
 }
 
 const ChatBubbles: React.FC<ChatBubblesProps> = ({ chats, isBotTyping, inPerson = false, sendChat }) => {
-
+  const location = useLocation();
   const presetChats = [
     {
       title: 'Out Patient Appointment Process',
@@ -69,22 +70,23 @@ const ChatBubbles: React.FC<ChatBubblesProps> = ({ chats, isBotTyping, inPerson 
 
   return (
     <div className="flex flex-col justify-end mt-auto min-h-full pb-3 space-y-2">
+      {location.pathname === "/" && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 mt-20">
+          {presetChats.map((chat, index) => (
+            <div
+              key={index}
+              onClick={() => sendChat(chat.message, false)}
+              className={`flex flex-col border mouse-pointer border-white bg-white rounded-md shadow-md p-3 hover:bg-zinc-100 cursor-pointer`}>
+              <p className={` flex flex-col rounded-lg break-word `} >
+                {chat.title}
+                <span className='text-xs' dangerouslySetInnerHTML={{ __html: chat.message }} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 mt-20">
-        {presetChats.map((chat, index) => (
-          <div
-            key={index}
-            onClick={() => sendChat(chat.message, false)}
-            className={`flex flex-col border mouse-pointer border-white bg-white rounded-md shadow-md p-3 hover:bg-zinc-100 cursor-pointer`}>
-            <p className={` flex flex-col rounded-lg break-word `} >
-              {chat.title}
-              <span className='text-xs' dangerouslySetInnerHTML={{ __html: chat.message }} />
-
-            </p>
-          </div>
-        ))
-        }
-      </div>
+              </p>
+            </div>
+          ))
+          }
+        </div>
+      )}
 
       <TransitionGroup component={null}>
         {chats.map((chat, index) => (
